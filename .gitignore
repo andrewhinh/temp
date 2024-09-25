@@ -30,3 +30,7 @@
 *.exe
 *.out
 *.app
+
+# cuda-toolkit
+*.deb
+cuda-samples/
