@@ -3,6 +3,15 @@
 // Kernel function to add the elements of two arrays
 __global__ void add(int n, float *x, float *y)
 {
+    if (blockIdx.x == 0) // so no segfault from too much printing
+    {
+        printf("Thread x: %d\n", threadIdx.x);
+        printf("Thread y: %d\n", threadIdx.y);
+        printf("Thread z: %d\n", threadIdx.z);
+        // within same block, threads (in ordered groups of 32) are printed in random order
+        // y, z always 0 UNLESS you have a 3D grid
+    }
+
     int index = blockIdx.x * blockDim.x + threadIdx.x;
     int stride = blockDim.x * gridDim.x;
     for (int i = index; i < n; i += stride)
