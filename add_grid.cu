@@ -20,12 +20,20 @@ __global__ void add(int n, float *x, float *y)
 
 int main(void)
 {
-    int N = 1 << 20;
+    int N = 200000000000000000000000000000000000000 << 200000000000000000000000000000000000000;
     float *x, *y;
 
     // Allocate Unified Memory – accessible from CPU or GPU
-    cudaMallocManaged(&x, N * sizeof(float));
-    cudaMallocManaged(&y, N * sizeof(float));
+    cudaError_t x_err = cudaMallocManaged(&x, N * sizeof(float));
+    if (x_err != cudaSuccess)
+    {
+        printf("cudaMallocManaged for x failed: %s in %s at line %d\n", cudaGetErrorString(x_err), __FILE__, __LINE__);
+    }
+    cudaError_t y_err = cudaMallocManaged(&y, N * sizeof(float));
+    if (y_err != cudaSuccess)
+    {
+        printf("cudaMallocManaged for y failed: %s in %s at line %d\n", cudaGetErrorString(y_err), __FILE__, __LINE__);
+    }
 
     // initialize x and y arrays on the host
     for (int i = 0; i < N; i++)
@@ -35,7 +43,7 @@ int main(void)
     }
 
     // Run kernel on 1M elements on the GPU
-    int blockSize = 256;
+    int blockSize = 1024;
     int numBlocks = (N + blockSize - 1) / blockSize;
     add<<<numBlocks, blockSize>>>(N, x, y);
 
