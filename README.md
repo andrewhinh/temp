@@ -1,3 +1,3 @@
-# temp
+# v-ocr
 
-TBD
+Image parsing.
