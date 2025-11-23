@@ -2,36 +2,6 @@
 
 A hard handwriting image OCR system via a public API, website, and PyPI package, utilizing a fine-tuned Qwen2.5-VL-7B-Instruct. Utilizes FineWeb-inspired data quality filtering and stratified deduplication alongside SFT and DPO on worst-performing samples to reduce character error rate by 8.18% compared to the base model.
 
-## Usage
-
-Use the web app:
-
-```bash
-https://bit.ly/formless-fe
-```
-
-Or hit the API:
-
-```bash
-curl -X POST -H "Content-Type: application/json" -d '{"image_url": "<image-url>"}' https://andrewhinh--formless-api-modal-get.modal.run
-```
-
-Or use the CLI:
-
-```bash
-uv run formless -i <image-url> [-v]
-or
-uv run formless -p <local-image-path> [-v]
-```
-
-Or use in Python:
-
-```python
-from formless import scan
-scan(image_url="<image-url>", verbose=1)
-scan(image_path="<local-image-path>", verbose=1)
-```
-
 ## Training results
 
 Base model:
